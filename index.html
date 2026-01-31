@@ -3,13 +3,34 @@
 <html lang="zh-CN">
 <head>
     <meta charset="UTF-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no, viewport-fit=cover">
     <title>建安三高校园圈</title>
+    
+    <!-- 移动端兼容性补丁：解决旧版手机浏览器不支持 importmap 的白屏问题 -->
+    <script async src="https://ga.jspm.io/npm:es-module-shims@1.10.1/dist/es-module-shims.js"></script>
+
     <script src="https://cdn.tailwindcss.com"></script>
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
     <style>
       @import url('https://fonts.googleapis.com/css2?family=Noto+Sans+SC:wght@400;500;700;900&display=swap');
-      body { font-family: 'Noto Sans SC', sans-serif; -webkit-tap-highlight-color: transparent; }
+      
+      :root {
+        --sat: env(safe-area-inset-top);
+        --sar: env(safe-area-inset-right);
+        --sab: env(safe-area-inset-bottom);
+        --sal: env(safe-area-inset-left);
+      }
+
+      body { 
+        font-family: 'Noto Sans SC', sans-serif; 
+        -webkit-tap-highlight-color: transparent;
+        /* 消除移动端 300ms 点击延迟 */
+        touch-action: manipulation;
+        /* 防止 iOS 橡皮泥回弹效果干扰体验 */
+        overscroll-behavior-y: none;
+        -webkit-overflow-scrolling: touch;
+      }
+
       .hide-scrollbar::-webkit-scrollbar { display: none; }
       .pink-gradient { background: linear-gradient(135deg, #FF2E93 0%, #FF75C3 100%); }
       
@@ -26,13 +47,19 @@
       }
       
       .masonry-grid { display: grid; grid-template-columns: repeat(2, 1fr); gap: 12px; }
+
+      /* 适配刘海屏底部 */
+      .pb-safe { padding-bottom: calc(6rem + var(--sab)); }
+      .bottom-nav-safe { padding-bottom: var(--sab); }
     </style>
+
     <script type="importmap">
     {
       "imports": {
         "react/": "https://esm.sh/react@^19.2.4/",
         "react": "https://esm.sh/react@^19.2.4",
         "react-dom/": "https://esm.sh/react-dom@^19.2.4/",
+        "react-dom": "https://esm.sh/react-dom@^19.2.4",
         "@google/genai": "https://esm.sh/@google/genai@^1.38.0"
       }
     }
@@ -40,5 +67,7 @@
 </head>
 <body class="bg-[#FFF9FB] text-gray-900 overflow-x-hidden">
     <div id="root"></div>
+    <!-- 显式启动应用入口 -->
+    <script type="module" src="index.tsx"></script>
 </body>
 </html>
