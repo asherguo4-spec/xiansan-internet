@@ -69,6 +69,12 @@ const HomeScreen: React.FC<HomeScreenProps> = ({ posts, user, onRefresh }) => {
 
   return (
     <div className="px-4 pt-6 pb-10">
+      {/* 顶部主标题 */}
+      <div className="mb-6 px-2">
+        <h1 className="text-3xl font-black text-gray-900 tracking-tighter">县三网</h1>
+        <div className="w-10 h-1.5 bg-[#FF2E93] rounded-full mt-1"></div>
+      </div>
+
       <div className="mb-8">
         <div className="relative overflow-hidden bg-gray-900 rounded-[32px] shadow-2xl shadow-orange-100 min-h-[180px] flex flex-col justify-end p-6 group">
           <img src={dailyBanger.imageUrl} className="absolute inset-0 w-full h-full object-cover opacity-60 group-hover:scale-105 transition-transform duration-700" alt="banger" />
